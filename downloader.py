@@ -1,8 +1,12 @@
 import requests, datetime, time, os, sys, logging
-import multiprocessing
-import threading
+import threading, multiprocessing
+import argparse
 
 stop_queue = multiprocessing.Queue()
+arguement_parser = argparse.ArgumentParser()
+arguement_parser.add_argument('--stream', '-s', const='WDR4', default='WDR4', help='The stream to download: 1Live, WDR2, WDR3, WDR4, WDR5')
+arguement_parser.add_argument('--duration', '-d',const=1, default=1 ,help='The duration of the recording in minutes')
+arguement_parser.add_argument('--filename', '-f',const='download', default='download' ,help='The filename of the recording')
 
 wdr_streams = {'1Live': "https://wdr-1live-live.icecastssl.wdr.de/wdr/1live/live/mp3/128/stream.mp3",
                 'WDR2': "https://wdr-wdr2-ostwestfalenlippe.icecastssl.wdr.de/wdr/wdr2/ostwestfalenlippe/mp3/128/stream.mp3",
@@ -11,7 +15,7 @@ wdr_streams = {'1Live': "https://wdr-1live-live.icecastssl.wdr.de/wdr/1live/live
                 'WDR5': "https://wdr-wdr5-live.icecastssl.wdr.de/wdr/wdr5/live/mp3/128/stream.mp3"}
 
 
-def download(stream_url , filename='download'):
+def download(stream_url , filename):
     stream_request = requests.get(stream_url, stream=True)
     with open(f'{filename}_{datetime.date.today()}.mp3', 'wb', 0) as f:
         try:
@@ -27,11 +31,12 @@ def download(stream_url , filename='download'):
             pass
 
 if __name__ == '__main__':
-    t1 = threading.Thread(target=download, args=(wdr_streams[sys.argv[1]], sys.argv[3]))
+    args = arguement_parser.parse_args()
+    t1 = threading.Thread(target=download, args=(wdr_streams[args.stream], args.filename))
     logging.info('Starting download')
     t1.start()
-    wait_time = int(sys.argv[2])*60 # Convert minutes to seconds
-    time.sleep(wait_time) # Wait for the specified amount of time
+    wait_time = int (args.duration)*60                      # Convert minutes to seconds
+    time.sleep(wait_time)                                   # Wait for the specified amount of time
     logging.info('Stopping download')
-    stop_queue.put(1) # Put something in the queue to stop the download
+    stop_queue.put(1)                                       # Put something in the queue to stop the download
     t1.join()

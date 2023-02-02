@@ -1,18 +1,24 @@
-# wdr4downloader
+# WDR Radio Downloader
+
 Use install.sh to get dependencies
 
 Downloads these WDR streams:
 
-- 1Live: http://wdr-1live-live.icecast.wdr.de/wdr/1live/live/mp3/128/stream.mp3
-- WDR2: http://wdr-wdr2-ostwestfalenlippe.icecast.wdr.de/wdr/wdr2/ostwestfalenlippe/mp3/128/stream.mp3
-- WDR3: http://wdr-wdr3-live.icecast.wdr.de/wdr/wdr3/live/mp3/128/stream.mp3
-- WDR4: http://wdr-wdr4-live.icecast.wdr.de/wdr/wdr4/live/mp3/128/stream.mp3
-- WDR5: http://wdr-wdr5-live.icecast.wdr.de/wdr/wdr5/live/mp3/128/stream.mp3
-
-Usage:
-- First argument: Name of Radiochanel form list above
-- Second argument: Duration of recording in minutes
-- Third argument: Desired filename. The script will add the current date
-
-made for my father
+- 1Live : https://wdr-1live-live.icecastssl.wdr.de/wdr/1live/live/mp3/128/stream.mp3
+- WDR2 : https://wdr-wdr2-ostwestfalenlippe.icecastssl.wdr.de/wdr/wdr2/ostwestfalenlippe/mp3/128/stream.mp3
+- WDR3 : https://wdr-wdr3-live.icecastssl.wdr.de/wdr/wdr3/live/mp3/128/stream.mp3
+- WDR4 : https://wdr-wdr4-live.icecastssl.wdr.de/wdr/wdr4/live/mp3/128/stream.mp3
+- WDR5 : https://wdr-wdr5-live.icecastssl.wdr.de/wdr/wdr5/live/mp3/128/stream.mp3
+___
+Accepts three arguments:
+- --stream (-s) : Name of Radiochanel form list above. Default: WDR4
+- --duraton (-d) : Duration of recording in minutes. Default: 1
+- --filename (-f) : Desired filename. The script will add the current date. Default: download
+___
+Example: 
+~~~ 
+python downloader.py -s WDR2 -d 5 -f test
+~~~
+___
+Made for my father
 
