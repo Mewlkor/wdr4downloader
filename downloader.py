@@ -4,9 +4,9 @@ import argparse
 
 stop_queue = multiprocessing.Queue()
 arguement_parser = argparse.ArgumentParser()
-arguement_parser.add_argument('--stream', '-s', const='WDR4', default='WDR4', help='The stream to download: 1Live, WDR2, WDR3, WDR4, WDR5')
-arguement_parser.add_argument('--duration', '-d',const=1, default=1 ,help='The duration of the recording in minutes')
-arguement_parser.add_argument('--filename', '-f',const='download', default='download' ,help='The filename of the recording')
+arguement_parser.add_argument('--stream', '-s', nargs='?', const='WDR4', default='WDR4', help='The stream to download: 1Live, WDR2, WDR3, WDR4, WDR5')
+arguement_parser.add_argument('--duration', '-d', nargs='?', const=1, default=1 ,help='The duration of the recording in minutes')
+arguement_parser.add_argument('--filename', '-f', nargs='?', const='download', default='download' ,help='The filename of the recording')
 
 wdr_streams = {'1Live': "https://wdr-1live-live.icecastssl.wdr.de/wdr/1live/live/mp3/128/stream.mp3",
                 'WDR2': "https://wdr-wdr2-ostwestfalenlippe.icecastssl.wdr.de/wdr/wdr2/ostwestfalenlippe/mp3/128/stream.mp3",
